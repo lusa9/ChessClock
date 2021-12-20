@@ -7,7 +7,7 @@ import PickTimerButton from "./PickTimerButton";
 export default () => {
   const { timers } = useContext(TimerContext);
   return (
-    <Flex column justifyContentEnd>
+    <div>
       <h2>Pick timer</h2>
       <Flex column gap={5}>
         {timers
@@ -15,6 +15,6 @@ export default () => {
           .map(PickTimerButton)}
         <AccentButton name="NEW" onClick={() => {}} />
       </Flex>
-    </Flex>
+    </div>
   );
 };
