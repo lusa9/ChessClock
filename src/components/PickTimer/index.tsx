@@ -7,7 +7,9 @@ export default () => {
   return (
     <div>
       <h2>Pick timer</h2>
-      {timers.map(PickTimerButton)}
+      {timers
+        .map((props) => ({ ...props, onClick: () => {} }))
+        .map(PickTimerButton)}
     </div>
   );
 };
