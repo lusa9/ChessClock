@@ -15,7 +15,7 @@ export default () => {
         {timers
           .map((props) => ({ ...props, onClick: () => {} }))
           .map(PickTimerButton)}
-        <AccentButton name="NEW" onClick={() => navigate("/new-timer")} />
+        <AccentButton name="NEW" onClick={() => navigate("/timers/new")} />
       </Flex>
     </div>
   );
