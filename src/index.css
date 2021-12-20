@@ -2,3 +2,46 @@
   background-color: black;
   font-family: "Roboto", sans-serif;
 }
+
+:root {
+  --gluon-grey: #1c1c1e;
+  --blackish-grey: #5c5c61;
+  --aluminum-silver: #8e8e93;
+}
+
+h1 {
+  font-size: 110px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 129px;
+  letter-spacing: -0.03em;
+  text-align: center;
+}
+
+h2 {
+  font-size: 42px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 49px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: var(--blackish-grey);
+}
+
+button {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 23px;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+p {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
