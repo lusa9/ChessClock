@@ -13,7 +13,17 @@ export default () => {
       <h2>Pick timer</h2>
       <Flex column gap={5}>
         {timers
-          .map((props) => ({ ...props, onClick: () => {} }))
+          .map(({ timeMin, incrementSec }) => ({
+            timeMin,
+            incrementSec,
+            onClick: () =>
+              navigate(
+                `/clock/${new URLSearchParams({
+                  time: String(timeMin),
+                  ...(incrementSec && { increment: String(incrementSec) }),
+                })}`
+              ),
+          }))
           .map(TimersIndexButton)}
         <AccentButton name="NEW" onClick={() => navigate("/timers/new")} />
       </Flex>
