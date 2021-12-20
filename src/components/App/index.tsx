@@ -1,5 +1,4 @@
-import NewTimer from "components/NewTimer";
-import PickTimer from "components/PickTimer";
+import Timers from "components/Timers";
 import {
   BrowserRouter as Router,
   Routes,
@@ -12,9 +11,8 @@ export default () => (
   <Store>
     <Router>
       <Routes>
-        <Route path="/" element={<Navigate replace to="/timers" />} />
-        <Route path="/timers" element={<PickTimer />} />
-        <Route path="/timers/new" element={<NewTimer />} />
+        <Route path="*" element={<Navigate replace to="/timers" />} />
+        <Route path="/timers/*" element={<Timers />} />
       </Routes>
     </Router>
   </Store>
