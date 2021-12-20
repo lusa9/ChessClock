@@ -1,4 +1,16 @@
 .component {
   height: 90px;
-  width: 375px;
+  background-color: var(--gluon-grey);
+  color: var(--sparkling-metal);
+
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 23px;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+.component:active {
+  opacity: 0.7;
 }
