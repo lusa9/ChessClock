@@ -3,7 +3,7 @@ import Flex from "components/Flex";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { TimerContext } from "Store/TimerProvider";
-import PickTimerButton from "./PickTimerButton";
+import TimersIndexButton from "./TimersIndexButton";
 
 export default () => {
   const { timers } = useContext(TimerContext);
@@ -14,7 +14,7 @@ export default () => {
       <Flex column gap={5}>
         {timers
           .map((props) => ({ ...props, onClick: () => {} }))
-          .map(PickTimerButton)}
+          .map(TimersIndexButton)}
         <AccentButton name="NEW" onClick={() => navigate("/timers/new")} />
       </Flex>
     </div>
