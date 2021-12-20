@@ -1,11 +1,12 @@
 import { render } from "@testing-library/react";
 import Component from ".";
 
-describe(Component, () => {
+describe("", () => {
   test("renders successfully", () => {
     const { baseElement: element } = render(
       <Component timeMin={3} incrementSec={2} />
     );
+
     expect(element).toBeInTheDocument();
   });
 
