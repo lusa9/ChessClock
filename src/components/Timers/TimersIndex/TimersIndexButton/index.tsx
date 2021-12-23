@@ -1,20 +1,10 @@
 import styles from "./styles.module.css";
-import { TimerProps } from "types";
 
-export interface PickTimerButtonProps extends TimerProps {
+export interface PickTimerButtonProps {
+  label: string;
   onClick: () => void;
 }
 
-export default ({ timeMin, incrementSec, onClick }: PickTimerButtonProps) => {
-  let displayText = `${timeMin}`;
-  if (incrementSec) {
-    displayText += ` | ${incrementSec}`;
-  }
-  return (
-    <button
-      className={styles.component}
-      children={displayText}
-      {...{ onClick }}
-    />
-  );
-};
+export default ({ label, onClick }: PickTimerButtonProps) => (
+  <button className={styles.component} children={label} {...{ onClick }} />
+);
