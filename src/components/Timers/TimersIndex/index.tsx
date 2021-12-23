@@ -34,7 +34,7 @@ export default () => {
               <TimersIndexButton {...props} />
             </React.Fragment>
           ))}
-        <AccentButton name="NEW" onClick={() => navigate("/timers/new")} />
+        <AccentButton label="NEW" onClick={() => navigate("/timers/new")} />
       </Flex>
     </div>
   );
