@@ -3,8 +3,9 @@ import Component from ".";
 
 const label = "Button label";
 const onClick = jest.fn();
+const isActive = false;
 
-const setup = () => render(<Component {...{ label, onClick }} />);
+const setup = () => render(<Component {...{ label, onClick, isActive }} />);
 
 test("renders successfully", () => {
   const { baseElement: element } = setup();
@@ -19,10 +20,10 @@ test("renders correct label", () => {
   expect(element).toBeInTheDocument();
 });
 
-describe("on click", () => {
+describe("on touch start", () => {
   test("triggers callback call", () => {
     const { container } = setup();
-    fireEvent.click(container.getElementsByTagName("button")[0]);
+    fireEvent.touchStart(container.getElementsByTagName("button")[0]);
 
     expect(onClick).toBeCalledTimes(1);
   });
