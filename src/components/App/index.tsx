@@ -1,3 +1,4 @@
+import Clock from "components/Clock";
 import Timers from "components/Timers";
 import {
   BrowserRouter as Router,
@@ -5,7 +6,6 @@ import {
   Route,
   Navigate,
   useParams,
-  useSearchParams,
 } from "react-router-dom";
 import Store from "Store";
 
@@ -24,17 +24,32 @@ export default () => (
 const ClockElement = () => {
   const { params } = useParams();
   const searchParams = new URLSearchParams(params);
-  const time = searchParams.get("time");
-  if (!time) {
+  const timeString = searchParams.get("time");
+  if (!timeString) {
     return <Navigate replace to="/timers" />;
   }
-  const increment = searchParams.get("increment");
-  return (
-    <div>
-      <h2>
-        {time}
-        {increment ? <span> | {increment}</span> : null}
-      </h2>
-    </div>
-  );
+  const timeMin = parseInt(timeString);
+
+  if (isNaN(timeMin)) {
+    return <Navigate replace to="/timers" />;
+  }
+
+  const incrementString = searchParams.get("increment");
+  const incrementSec = incrementSecFrom(incrementString);
+
+  return <Clock {...{ timeMin, incrementSec }} />;
+};
+
+const incrementSecFrom = (incrementString: string | null) => {
+  if (!incrementString) {
+    return undefined;
+  }
+
+  const incrementSec = parseInt(incrementString);
+
+  if (isNaN(incrementSec)) {
+    return undefined;
+  }
+
+  return incrementSec;
 };
