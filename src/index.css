@@ -22,6 +22,7 @@ body {
   overflow: hidden;
   position: fixed;
   touch-action: pan-x pan-y;
+  touch-action: double-tap-zoom;
 }
 
 button {
