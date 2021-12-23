@@ -35,21 +35,11 @@ const ClockElement = () => {
   }
 
   const incrementString = searchParams.get("increment");
-  const incrementSec = incrementSecFrom(incrementString);
+  const incrementSec = incrementString ? parseInt(incrementString) : undefined;
+
+  if (incrementString && isNaN(parseInt(incrementString))) {
+    return <Navigate replace to="/timers" />;
+  }
 
   return <Clock {...{ timeMin, incrementSec }} />;
-};
-
-const incrementSecFrom = (incrementString: string | null) => {
-  if (!incrementString) {
-    return undefined;
-  }
-
-  const incrementSec = parseInt(incrementString);
-
-  if (isNaN(incrementSec)) {
-    return undefined;
-  }
-
-  return incrementSec;
 };
