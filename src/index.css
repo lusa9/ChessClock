@@ -4,6 +4,7 @@ h3,
 h4,
 h5,
 h6 {
+  margin-block-start: unset;
   margin-block-end: unset;
 }
 
@@ -12,6 +13,14 @@ body,
 :root,
 button {
   all: unset;
+}
+
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: fixed;
 }
 
 button {
@@ -33,12 +42,6 @@ button {
   color: white;
   font-family: "Roboto", sans-serif;
   user-select: none;
-
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
 }
 
 h1 {

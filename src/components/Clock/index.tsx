@@ -1,13 +1,19 @@
+import Flex from "components/Flex";
+import ClockButton from "./ClockButton";
+import styles from "./styles.module.css";
+
 interface Props {
   timeMin: number;
   incrementSec?: number;
 }
 
 export default ({ timeMin, incrementSec }: Props) => (
-  <div>
-    <h2>
-      {timeMin}
-      {incrementSec ? <span> | {incrementSec}</span> : null}
-    </h2>
-  </div>
+  <Flex
+    column
+    className={styles.component}
+    style={{ height: window.innerHeight }}
+  >
+    <ClockButton label={String(timeMin)} onClick={() => {}} />
+    <ClockButton label={String(timeMin)} onClick={() => {}} />
+  </Flex>
 );

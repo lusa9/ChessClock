@@ -9,33 +9,35 @@ export default () => {
   const { timers } = useContext(TimerContext);
   const navigate = useNavigate();
   return (
-    <div>
-      <h2>Pick timer</h2>
-      <Flex column gap={5}>
-        {timers
-          .map(({ timeMin, incrementSec }) => {
-            let label = `${timeMin}`;
-            if (incrementSec) {
-              label += ` | ${incrementSec}`;
-            }
-            return {
-              label,
-              onClick: () =>
-                navigate(
-                  `/clock/${new URLSearchParams({
-                    time: String(timeMin),
-                    ...(incrementSec && { increment: String(incrementSec) }),
-                  })}`
-                ),
-            };
-          })
-          .map((props) => (
-            <React.Fragment key={props.label}>
-              <TimersIndexButton {...props} />
-            </React.Fragment>
-          ))}
-        <AccentButton label="NEW" onClick={() => navigate("/timers/new")} />
-      </Flex>
-    </div>
+    <Flex column justifyContentEnd style={{ height: window.innerHeight }}>
+      <div>
+        <h2>Pick timer</h2>
+        <Flex column gap={5}>
+          {timers
+            .map(({ timeMin, incrementSec }) => {
+              let label = `${timeMin}`;
+              if (incrementSec) {
+                label += ` | ${incrementSec}`;
+              }
+              return {
+                label,
+                onClick: () =>
+                  navigate(
+                    `/clock/${new URLSearchParams({
+                      time: String(timeMin),
+                      ...(incrementSec && { increment: String(incrementSec) }),
+                    })}`
+                  ),
+              };
+            })
+            .map((props) => (
+              <React.Fragment key={props.label}>
+                <TimersIndexButton {...props} />
+              </React.Fragment>
+            ))}
+          <AccentButton label="NEW" onClick={() => navigate("/timers/new")} />
+        </Flex>
+      </div>
+    </Flex>
   );
 };
