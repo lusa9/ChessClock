@@ -25,7 +25,9 @@ export default ({ timeMin, incrementSec }: Props) => {
           disabled: activeIndex !== undefined ? index !== activeIndex : false,
           clock,
           onClick: () => {
-            clock.press();
+            if (activeIndex !== undefined) {
+              clock.press();
+            }
             const otherClockIndex = (index + 1) % 2;
             const otherClock = clocks[otherClockIndex];
             otherClock.start();

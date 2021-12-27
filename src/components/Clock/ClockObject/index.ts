@@ -6,7 +6,6 @@ export class ClockObject {
   onLabelChange?: (label: string) => void;
   onExpiry?: () => void;
   private timer?: NodeJS.Timer;
-  private moveNumber = 0;
 
   constructor(timeMin: number, incrementSec?: number) {
     this.timeMin = timeMin;
@@ -35,12 +34,10 @@ export class ClockObject {
   press() {
     this.pause();
 
-    if (this.incrementSec && this.moveNumber) {
+    if (this.incrementSec) {
       this.timeSecLeft += this.incrementSec;
       this.updateLabel();
     }
-
-    this.incrementMoveNumber();
   }
 
   pause() {
@@ -58,10 +55,6 @@ export class ClockObject {
   private updateLabel() {
     this.label = format(this.timeSecLeft);
     this.onLabelChange && this.onLabelChange(this.label);
-  }
-
-  private incrementMoveNumber() {
-    this.moveNumber += 1;
   }
 }
 
