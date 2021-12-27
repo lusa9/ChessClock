@@ -9,12 +9,12 @@ interface Props {
   incrementSec?: number;
 }
 
-export default ({ timeMin }: Props) => {
+export default ({ timeMin, incrementSec }: Props) => {
   const [activeIndex, setActiveIndex] = useState<number>();
 
   const clocks = useMemo(
-    () => [...Array(2)].map((_) => new ClockObject(timeMin)),
-    [timeMin]
+    () => [...Array(2)].map((_) => new ClockObject(timeMin, incrementSec)),
+    [timeMin, incrementSec]
   );
 
   const clockButtons = useMemo(
@@ -25,7 +25,7 @@ export default ({ timeMin }: Props) => {
           disabled: activeIndex !== undefined ? index !== activeIndex : false,
           clock,
           onClick: () => {
-            clock.pause();
+            clock.press();
             const otherClockIndex = (index + 1) % 2;
             const otherClock = clocks[otherClockIndex];
             otherClock.start();
