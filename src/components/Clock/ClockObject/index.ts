@@ -2,6 +2,7 @@ export class ClockObject {
   timeMin: number;
   timeSecLeft: number;
   onClockLabelChange?: (label: string) => void;
+  onExpiry?: () => void;
   timer?: NodeJS.Timer;
 
   constructor(timeMin: number) {
@@ -17,10 +18,14 @@ export class ClockObject {
 
     if (this.timeSecLeft === 0) {
       this.pause();
+      this.onExpiry && this.onExpiry();
     }
   }
 
   start() {
+    if (this.timer) {
+      return;
+    }
     this.timer = setInterval(this.secondPassed.bind(this), 1000);
   }
 

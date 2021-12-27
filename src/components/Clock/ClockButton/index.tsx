@@ -1,5 +1,5 @@
 import Flex from "components/Flex";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ClockObject } from "../ClockObject";
 import styles from "./styles.module.css";
 
@@ -11,18 +11,33 @@ export interface ClockButtonProps {
 }
 export default ({ clock, onClick, isActive, disabled }: ClockButtonProps) => {
   const [label, setLabel] = useState(String(clock.timeSecLeft));
+  const [expired, setExpired] = useState(false);
 
   useEffect(() => {
     clock.onClockLabelChange = setLabel;
+    clock.onExpiry = () => setExpired(true);
+
     return () => {
       clock.onClockLabelChange = undefined;
+      clock.onExpiry = undefined;
     };
   }, [clock]);
 
+  const className = useMemo(() => {
+    let classNames = [];
+    if (isActive) {
+      classNames.push(styles.active);
+    }
+    if (expired) {
+      classNames.push(styles.expired);
+    }
+    return classNames.join(" ");
+  }, [isActive, expired]);
+
   return (
     <button
-      onTouchStart={!disabled ? onClick : undefined}
-      {...(isActive && { className: styles.active })}
+      {...{ className }}
+      onTouchStart={!disabled && !expired ? onClick : undefined}
     >
       <Flex justifyContentCenter alignItemsCenter>
         <h1>{label}</h1>
