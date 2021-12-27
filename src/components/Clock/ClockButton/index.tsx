@@ -10,15 +10,15 @@ export interface ClockButtonProps {
   disabled?: boolean;
 }
 export default ({ clock, onClick, isActive, disabled }: ClockButtonProps) => {
-  const [label, setLabel] = useState(String(clock.timeSecLeft));
+  const [label, setLabel] = useState(clock.label);
   const [expired, setExpired] = useState(false);
 
   useEffect(() => {
-    clock.onClockLabelChange = setLabel;
+    clock.onLabelChange = setLabel;
     clock.onExpiry = () => setExpired(true);
 
     return () => {
-      clock.onClockLabelChange = undefined;
+      clock.onLabelChange = undefined;
       clock.onExpiry = undefined;
     };
   }, [clock]);

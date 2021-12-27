@@ -1,20 +1,22 @@
 export class ClockObject {
-  timeMin: number;
-  timeSecLeft: number;
-  onClockLabelChange?: (label: string) => void;
+  private timeMin: number;
+  private timeSecLeft: number;
+  label: string;
+  onLabelChange?: (label: string) => void;
   onExpiry?: () => void;
-  timer?: NodeJS.Timer;
+  private timer?: NodeJS.Timer;
 
   constructor(timeMin: number) {
     this.timeMin = timeMin;
     this.timeSecLeft = timeMin * 60;
+    this.label = format(this.timeSecLeft);
   }
 
   secondPassed() {
     this.timeSecLeft = this.timeSecLeft - 1;
+    this.label = format(this.timeSecLeft);
 
-    this.onClockLabelChange &&
-      this.onClockLabelChange(String(this.timeSecLeft));
+    this.onLabelChange && this.onLabelChange(format(this.timeSecLeft));
 
     if (this.timeSecLeft === 0) {
       this.pause();
@@ -40,6 +42,11 @@ export class ClockObject {
     this.pause();
     this.timeSecLeft = this.timeMin * 60;
   }
-
-  onTimeChange() {}
 }
+
+const format = (timeSec: number) => {
+  const minutes = Math.floor(timeSec / 60);
+  const seconds = timeSec % 60;
+
+  return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+};
