@@ -1,6 +1,7 @@
 import Flex from "components/Flex";
 import React, { useCallback, useMemo, useState } from "react";
 import ClockButton from "./ClockButton";
+import { ClockObject } from "./ClockObject";
 import styles from "./styles.module.css";
 
 interface Props {
@@ -8,25 +9,45 @@ interface Props {
   incrementSec?: number;
 }
 
-const clocks = [...Array(2)];
-
-export default ({ timeMin, incrementSec }: Props) => {
+export default ({ timeMin }: Props) => {
   const [activeIndex, setActiveIndex] = useState<number>();
 
-  const onClick = useCallback(
-    (index: number) => () => setActiveIndex((index + 1) % 2),
-    []
+  const clocks = useMemo(
+    () => [...Array(2)].map((_) => new ClockObject(timeMin)),
+    [timeMin]
   );
 
   const clockButtons = useMemo(
     () =>
-      clocks.map((_, index) => ({
-        isActive: index === activeIndex,
-        label: String(timeMin),
-        onClick: onClick(index),
-      })),
-    [activeIndex, timeMin, onClick]
+      clocks.map((clock, index) => {
+        return {
+          isActive: index === activeIndex,
+          disabled: activeIndex !== undefined ? index !== activeIndex : false,
+          clock,
+          onClick: () => {
+            clock.pause();
+            const otherClockIndex = (index + 1) % 2;
+            const otherClock = clocks[otherClockIndex];
+            otherClock.start();
+
+            setActiveIndex(otherClockIndex);
+          },
+        };
+      }),
+    [clocks, activeIndex]
   );
+
+  const onPauseButtonClick = useCallback(() => {
+    clocks.forEach((clock) => {
+      clock.pause();
+    });
+  }, []);
+
+  const onResetButtonClick = useCallback(() => {
+    clocks.forEach((clock) => {
+      clock.reset();
+    });
+  }, []);
 
   return (
     <Flex
