@@ -53,7 +53,10 @@ export default ({ timeMin, incrementSec }: Props) => {
           <ClockButton {...props} />
         </React.Fragment>
       ))}
-      <div className={styles.controlButtonsContainer}>
+      <div
+        className={styles.controlButtonsContainer}
+        style={{ height: window.innerHeight }}
+      >
         <ControlButtons />
       </div>
     </Flex>
