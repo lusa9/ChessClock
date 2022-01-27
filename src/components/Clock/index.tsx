@@ -1,5 +1,5 @@
 import Flex from "components/Flex";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import ClockButton from "./ClockButton";
 import { ClockObject } from "./ClockObject";
 import styles from "./styles.module.css";
@@ -34,22 +34,12 @@ export default ({ timeMin, incrementSec }: Props) => {
 
             setActiveIndex(otherClockIndex);
           },
+          onPauseButtonClick: clock.pause,
+          onResetButtonClick: clock.reset,
         };
       }),
     [clocks, activeIndex]
   );
-
-  const onPauseButtonClick = useCallback(() => {
-    clocks.forEach((clock) => {
-      clock.pause();
-    });
-  }, []);
-
-  const onResetButtonClick = useCallback(() => {
-    clocks.forEach((clock) => {
-      clock.reset();
-    });
-  }, []);
 
   return (
     <Flex
