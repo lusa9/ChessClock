@@ -50,6 +50,7 @@ export class ClockObject {
   reset() {
     this.pause();
     this.timeSecLeft = this.timeMin * 60;
+    this.updateLabel();
   }
 
   private updateLabel() {

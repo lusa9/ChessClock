@@ -1,5 +1,5 @@
 import Flex from "components/Flex";
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import ClockButton from "./ClockButton";
 import { ClockObject } from "./ClockObject";
 import ControlButtons from "./ControlButtons";
@@ -35,12 +35,26 @@ export default ({ timeMin, incrementSec }: Props) => {
 
             setActiveIndex(otherClockIndex);
           },
-          onPauseButtonClick: clock.pause,
-          onResetButtonClick: clock.reset,
         };
       }),
     [clocks, activeIndex]
   );
+
+  const onPauseButtonClick = useCallback(() => {
+    clocks.forEach((clock) => {
+      clock.pause();
+    });
+
+    setActiveIndex(undefined);
+  }, [clocks]);
+
+  const onResetButtonClick = useCallback(() => {
+    clocks.forEach((clock) => {
+      clock.reset();
+    });
+
+    setActiveIndex(undefined);
+  }, [clocks]);
 
   return (
     <Flex
@@ -53,12 +67,14 @@ export default ({ timeMin, incrementSec }: Props) => {
           <ClockButton {...props} />
         </React.Fragment>
       ))}
-      <div
-        className={styles.controlButtonsContainer}
-        style={{ height: window.innerHeight }}
-      >
-        <ControlButtons />
-      </div>
+      {activeIndex !== undefined && (
+        <div
+          className={styles.controlButtonsContainer}
+          style={{ height: window.innerHeight }}
+        >
+          <ControlButtons {...{ onPauseButtonClick, onResetButtonClick }} />
+        </div>
+      )}
     </Flex>
   );
 };

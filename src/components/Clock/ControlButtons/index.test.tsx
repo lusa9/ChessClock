@@ -1,7 +1,11 @@
 import { render } from "@testing-library/react";
 import Component from ".";
 
-const setup = () => render(<Component />);
+const onPauseButtonClick = jest.fn();
+const onResetButtonClick = jest.fn();
+
+const setup = () =>
+  render(<Component {...{ onPauseButtonClick, onResetButtonClick }} />);
 
 test("renders successfully", () => {
   const { baseElement: element } = setup();
