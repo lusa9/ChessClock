@@ -2,6 +2,7 @@ import Flex from "components/Flex";
 import React, { useMemo, useState } from "react";
 import ClockButton from "./ClockButton";
 import { ClockObject } from "./ClockObject";
+import ControlButtons from "./ControlButtons";
 import styles from "./styles.module.css";
 
 interface Props {
@@ -52,6 +53,9 @@ export default ({ timeMin, incrementSec }: Props) => {
           <ClockButton {...props} />
         </React.Fragment>
       ))}
+      <div className={styles.controlButtonsContainer}>
+        <ControlButtons />
+      </div>
     </Flex>
   );
 };
