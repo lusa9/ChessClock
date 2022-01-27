@@ -7,10 +7,11 @@ const onResetButtonClick = jest.fn();
 
 interface SetupProps {
   timeMin?: number;
+  incrementSec?: number;
 }
 
 const setup = (props?: SetupProps) =>
-  new ClockObject(props?.timeMin || timeMin);
+  new ClockObject(props?.timeMin || timeMin, props?.incrementSec);
 
 it("creates successfully", () => {
   setup();
@@ -53,6 +54,14 @@ it("resets", async () => {
   clock.reset();
 
   expect(clock.label).toBe("10:00");
+});
+
+it("increments", async () => {
+  const clock = setup({ incrementSec: 2 });
+  clock.start();
+  clock.press();
+
+  expect(clock.label).toBe("10:02");
 });
 
 it("calls handler on label update", async () => {
