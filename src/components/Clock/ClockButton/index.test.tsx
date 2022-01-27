@@ -17,7 +17,7 @@ test("renders successfully", () => {
 
 test("renders correct label", () => {
   const { getByText } = setup();
-  const element = getByText(timeMin);
+  const element = getByText("10:00");
 
   expect(element).toBeInTheDocument();
 });
