@@ -27,7 +27,7 @@ it("starts", async () => {
   const clock = setup();
   clock.start();
 
-  await new Promise((r) => setTimeout(r, 1100));
+  await new Promise((r) => setTimeout(r, 1000));
 
   expect(clock.label).toBe("9:59");
 });
@@ -38,9 +38,9 @@ it("pauses", async () => {
 
   setTimeout(() => {
     clock.pause();
-  }, 1100);
+  }, 1000);
 
-  await new Promise((r) => setTimeout(r, 2100));
+  await new Promise((r) => setTimeout(r, 2000));
 
   expect(clock.label).toBe("9:59");
 });
@@ -49,7 +49,7 @@ it("resets", async () => {
   const clock = setup();
   clock.start();
 
-  await new Promise((r) => setTimeout(r, 1100));
+  await new Promise((r) => setTimeout(r, 1000));
 
   clock.reset();
 
@@ -69,7 +69,7 @@ it("calls handler on label update", async () => {
   clock.onLabelChange = jest.fn();
   clock.start();
 
-  await new Promise((r) => setTimeout(r, 1100));
+  await new Promise((r) => setTimeout(r, 1000));
 
   expect(clock.onLabelChange).toBeCalledTimes(1);
 });
