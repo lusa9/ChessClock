@@ -2,9 +2,6 @@ import { ClockObject } from ".";
 
 const timeMin = 10;
 
-const onPauseButtonClick = jest.fn();
-const onResetButtonClick = jest.fn();
-
 interface SetupProps {
   timeMin?: number;
   incrementSec?: number;
@@ -87,7 +84,7 @@ it("calls expiry handler on expired", async () => {
 it("calls expiry handler on reset", async () => {
   const clock = setup({ timeMin: 0.05 });
   clock.onExpiryChange = jest.fn();
-  clock.reset()
+  clock.reset();
 
   expect(clock.onExpiryChange).toBeCalledWith(false);
 });
