@@ -15,11 +15,11 @@ export default ({ clock, onClick, isActive, disabled }: ClockButtonProps) => {
 
   useEffect(() => {
     clock.onLabelChange = setLabel;
-    clock.onExpiry = () => setExpired(true);
+    clock.onExpiryChange = setExpired
 
     return () => {
       clock.onLabelChange = undefined;
-      clock.onExpiry = undefined;
+      clock.onExpiryChange = undefined
     };
   }, [clock]);
 

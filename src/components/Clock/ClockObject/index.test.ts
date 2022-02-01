@@ -74,12 +74,20 @@ it("calls handler on label update", async () => {
   expect(clock.onLabelChange).toBeCalledTimes(1);
 });
 
-it("calls handler on expiry", async () => {
+it("calls expiry handler on expired", async () => {
   const clock = setup({ timeMin: 0.05 });
-  clock.onExpiry = jest.fn();
+  clock.onExpiryChange = jest.fn();
   clock.start();
 
   await new Promise((r) => setTimeout(r, 3100));
 
-  expect(clock.onExpiry).toBeCalledTimes(1);
+  expect(clock.onExpiryChange).toBeCalledWith(true);
+});
+
+it("calls expiry handler on reset", async () => {
+  const clock = setup({ timeMin: 0.05 });
+  clock.onExpiryChange = jest.fn();
+  clock.reset()
+
+  expect(clock.onExpiryChange).toBeCalledWith(false);
 });
