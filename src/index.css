@@ -11,7 +11,8 @@ h6 {
 html,
 body,
 :root,
-button {
+button,
+input {
   all: unset;
 }
 
@@ -66,7 +67,30 @@ h2 {
   color: var(--blackish-grey);
 }
 
+h3 {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.04em;
+  text-align: center;
+  color: #8e8e93;
+}
+
 p {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+input {
+  background-color: #1c1c1e;
+  height: 70px;
+  text-align: center;
+
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
