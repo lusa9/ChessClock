@@ -1,9 +1,12 @@
 import AccentButton from "components/AccentButton";
 import Flex from "components/Flex";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { TimerContext } from "Store/TimerProvider";
 import styles from "./styles.module.css";
 
 export default () => {
+  const { addTimer } = useContext(TimerContext);
+
   const [minutes, setMinutes] = useState(0);
   const [incrementSeconds, setIncrementSeconds] = useState(0);
 
@@ -39,7 +42,12 @@ export default () => {
           </React.Fragment>
         ))}
       </Flex>
-      <AccentButton label="SAVE" onClick={() => {}} />
+      <AccentButton
+        label="SAVE"
+        onClick={() => {
+          addTimer({ timeMin: minutes, incrementSec: incrementSeconds });
+        }}
+      />
     </Flex>
   );
 };
@@ -66,24 +74,20 @@ interface InputProps {
   onChange: (newValue: number) => void;
 }
 
-const Input = (props: InputProps) => {
-  const [value, setValue] = useState(0);
-  return (
-    <input
-      type="number"
-      pattern="\d*"
-      {...props}
-      onChange={(evt) => {
-        const number = parseInt(evt.target.value) || 0;
-        debugger;
-        if (number > props.max) {
-          return;
-        }
+const Input = ({ value, onChange, min, max, autoFocus }: InputProps) => (
+  <input
+    type="number"
+    pattern="\d*"
+    onChange={(evt) => {
+      const number = parseInt(evt.target.value) || 0;
+      if (number > max) {
+        return;
+      }
 
-        setValue(number);
-        console.log(number);
-      }}
-      value={String(value)}
-    />
-  );
-};
+      onChange(number);
+      console.log(number);
+    }}
+    value={String(value)}
+    {...{ min, autoFocus }}
+  />
+);
