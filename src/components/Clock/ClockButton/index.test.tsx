@@ -6,8 +6,10 @@ const timeMin = 10;
 const clock = new ClockObject(timeMin);
 const onClick = jest.fn();
 const isActive = false;
+const expired = false;
 
-const setup = () => render(<Component {...{ clock, onClick, isActive }} />);
+const setup = () =>
+  render(<Component {...{ clock, onClick, isActive, expired }} />);
 
 test("renders successfully", () => {
   const { baseElement: element } = setup();

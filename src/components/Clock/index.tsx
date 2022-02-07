@@ -1,5 +1,5 @@
 import Flex from "components/Flex";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import ClockButton from "./ClockButton";
 import { ClockObject } from "./ClockObject";
 import ControlButtons from "./ControlButtons";
@@ -12,6 +12,7 @@ interface Props {
 
 export default ({ timeMin, incrementSec }: Props) => {
   const [activeIndex, setActiveIndex] = useState<number>();
+  const [expired, setExpired] = useState(false);
 
   const clocks = useMemo(
     () => [...Array(2)].map((_) => new ClockObject(timeMin, incrementSec)),
@@ -23,7 +24,10 @@ export default ({ timeMin, incrementSec }: Props) => {
       clocks.map((clock, index) => {
         return {
           isActive: index === activeIndex,
-          disabled: activeIndex !== undefined ? index !== activeIndex : false,
+          disabled:
+            expired || activeIndex !== undefined
+              ? index !== activeIndex
+              : false,
           clock,
           onClick: () => {
             if (activeIndex !== undefined) {
@@ -35,9 +39,10 @@ export default ({ timeMin, incrementSec }: Props) => {
 
             setActiveIndex(otherClockIndex);
           },
+          expired: expired ? index === activeIndex : false,
         };
       }),
-    [clocks, activeIndex]
+    [clocks, activeIndex, expired]
   );
 
   const onPauseButtonClick = useCallback(() => {
@@ -56,6 +61,18 @@ export default ({ timeMin, incrementSec }: Props) => {
     setActiveIndex(undefined);
   }, [clocks]);
 
+  useEffect(() => {
+    clocks.forEach((clock) => {
+      clock.onExpiryChange = setExpired;
+    });
+
+    return () => {
+      clocks.forEach((clock) => {
+        clock.onExpiryChange = undefined;
+      });
+    };
+  }, [clocks]);
+
   return (
     <Flex
       column
@@ -72,7 +89,9 @@ export default ({ timeMin, incrementSec }: Props) => {
           className={styles.controlButtonsContainer}
           style={{ height: window.innerHeight }}
         >
-          <ControlButtons {...{ onPauseButtonClick, onResetButtonClick }} />
+          <ControlButtons
+            {...{ onPauseButtonClick, onResetButtonClick, expired }}
+          />
         </div>
       )}
     </Flex>

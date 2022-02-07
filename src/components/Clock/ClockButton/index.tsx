@@ -7,19 +7,23 @@ export interface ClockButtonProps {
   clock: ClockObject;
   onClick: () => void;
   isActive: boolean;
+  expired: boolean;
   disabled?: boolean;
 }
-export default ({ clock, onClick, isActive, disabled }: ClockButtonProps) => {
+export default ({
+  clock,
+  onClick,
+  isActive,
+  expired,
+  disabled,
+}: ClockButtonProps) => {
   const [label, setLabel] = useState(clock.label);
-  const [expired, setExpired] = useState(false);
 
   useEffect(() => {
     clock.onLabelChange = setLabel;
-    clock.onExpiryChange = setExpired
 
     return () => {
       clock.onLabelChange = undefined;
-      clock.onExpiryChange = undefined
     };
   }, [clock]);
 
