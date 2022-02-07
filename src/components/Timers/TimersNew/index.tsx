@@ -1,11 +1,13 @@
 import AccentButton from "components/AccentButton";
 import Flex from "components/Flex";
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { TimerContext } from "Store/TimerProvider";
 import styles from "./styles.module.css";
 
 export default () => {
   const { addTimer } = useContext(TimerContext);
+  const navigate = useNavigate();
 
   const [minutes, setMinutes] = useState(0);
   const [incrementSeconds, setIncrementSeconds] = useState(0);
@@ -46,6 +48,7 @@ export default () => {
         label="SAVE"
         onClick={() => {
           addTimer({ timeMin: minutes, incrementSec: incrementSeconds });
+          navigate("/timers");
         }}
       />
     </Flex>
