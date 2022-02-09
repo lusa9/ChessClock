@@ -3,16 +3,16 @@ import Component from ".";
 
 const onPauseButtonClick = jest.fn();
 const onResetButtonClick = jest.fn();
-const expired = false;
+const paused = false;
 
 interface SetupProps {
-  expired?: boolean;
+  paused?: boolean;
 }
 
 const setup = (props?: SetupProps) =>
   render(
     <Component
-      {...{ onPauseButtonClick, onResetButtonClick, expired }}
+      {...{ onPauseButtonClick, onResetButtonClick, paused }}
       {...props}
     />
   );
@@ -31,17 +31,17 @@ it("renders pause button", () => {
   expect(element).toBeInTheDocument();
 });
 
-it("renders reset button", () => {
-  const { getByAltText } = setup();
+it("doesnt' render reset button", () => {
+  const { queryByAltText } = setup();
 
-  const element = getByAltText("reset");
+  const element = queryByAltText("reset");
 
-  expect(element).toBeInTheDocument();
+  expect(element).toBeNull();
 });
 
-describe("on expiry", () => {
+describe("on pause", () => {
   it("doesn't render pause button", () => {
-    const { queryByAltText } = setup({ expired: true });
+    const { queryByAltText } = setup({ paused: true });
 
     const element = queryByAltText("pause");
 
@@ -49,7 +49,7 @@ describe("on expiry", () => {
   });
 
   it("renders reset button", () => {
-    const { getByAltText } = setup({ expired: true });
+    const { getByAltText } = setup({ paused: true });
 
     const element = getByAltText("reset");
 
