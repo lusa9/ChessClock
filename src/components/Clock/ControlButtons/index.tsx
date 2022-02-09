@@ -8,6 +8,7 @@ interface Props {
   onResetButtonClick: () => void;
   paused: boolean;
   isNewGame: boolean;
+  expired: boolean;
 }
 
 export default ({
@@ -15,13 +16,20 @@ export default ({
   onResetButtonClick,
   paused,
   isNewGame,
+  expired,
 }: Props) => {
   const onClick = useMemo(
-    () => (paused ? onResetButtonClick : onPauseButtonClick),
-    [paused, onResetButtonClick, onPauseButtonClick]
+    () => (paused || expired ? onResetButtonClick : onPauseButtonClick),
+    [paused, expired, onResetButtonClick, onPauseButtonClick]
   );
-  const src = useMemo(() => (paused ? resetImgSrc : pauseImgSrc), [paused]);
-  const alt = useMemo(() => (paused ? "reset" : "pause"), [paused]);
+  const src = useMemo(
+    () => (paused || expired ? resetImgSrc : pauseImgSrc),
+    [paused, expired]
+  );
+  const alt = useMemo(
+    () => (paused || expired ? "reset" : "pause"),
+    [paused, expired]
+  );
 
   if (isNewGame) {
     return null;

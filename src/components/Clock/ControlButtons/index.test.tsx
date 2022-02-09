@@ -5,16 +5,24 @@ const onPauseButtonClick = jest.fn();
 const onResetButtonClick = jest.fn();
 const paused = false;
 const isNewGame = false;
+const expired = false;
 
 interface SetupProps {
   paused?: boolean;
   isNewGame?: boolean;
+  expired?: boolean;
 }
 
 const setup = (props?: SetupProps) =>
   render(
     <Component
-      {...{ onPauseButtonClick, onResetButtonClick, paused, isNewGame }}
+      {...{
+        onPauseButtonClick,
+        onResetButtonClick,
+        paused,
+        isNewGame,
+        expired,
+      }}
       {...props}
     />
   );
@@ -60,6 +68,24 @@ describe("on pause", () => {
 
   it("renders reset button", () => {
     const { getByAltText } = setup({ paused: true });
+
+    const element = getByAltText("reset");
+
+    expect(element).toBeInTheDocument();
+  });
+});
+
+describe("on expiry", () => {
+  it("doesn't render pause button", () => {
+    const { queryByAltText } = setup({ expired: true });
+
+    const element = queryByAltText("pause");
+
+    expect(element).toBeNull();
+  });
+
+  it("renders reset button", () => {
+    const { getByAltText } = setup({ expired: true });
 
     const element = getByAltText("reset");
 

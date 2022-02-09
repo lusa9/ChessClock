@@ -51,7 +51,7 @@ export class ClockObject {
     this.pause();
     this.timeSecLeft = this.timeMin * 60;
     this.updateLabel();
-    this.onExpiryChange && this.onExpiryChange(false)
+    this.onExpiryChange && this.onExpiryChange(false);
   }
 
   private updateLabel() {
