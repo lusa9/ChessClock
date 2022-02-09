@@ -84,16 +84,15 @@ export default ({ timeMin, incrementSec }: Props) => {
           <ClockButton {...props} />
         </React.Fragment>
       ))}
-      {activeIndex !== undefined && (
-        <div
-          className={styles.controlButtonsContainer}
-          style={{ height: window.innerHeight }}
-        >
-          <ControlButtons
-            {...{ onPauseButtonClick, onResetButtonClick, expired }}
-          />
-        </div>
-      )}
+      <div
+        className={styles.controlButtonsContainer}
+        style={{ height: window.innerHeight }}
+      >
+        <ControlButtons
+          paused={activeIndex === undefined}
+          {...{ onPauseButtonClick, onResetButtonClick, expired }}
+        />
+      </div>
     </Flex>
   );
 };

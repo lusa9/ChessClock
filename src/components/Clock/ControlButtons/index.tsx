@@ -6,13 +6,18 @@ import pauseImgSrc from "./pause.svg";
 interface Props {
   onPauseButtonClick: () => void;
   onResetButtonClick: () => void;
-  expired: boolean;
+  paused: boolean;
 }
 
-export default ({ onPauseButtonClick, onResetButtonClick, expired }: Props) => (
+export default ({ onPauseButtonClick, onResetButtonClick, paused }: Props) => (
   <Flex gap={10}>
-    <ControlButton src={resetImgSrc} alt="reset" onClick={onResetButtonClick} />
-    {!expired && (
+    {paused ? (
+      <ControlButton
+        src={resetImgSrc}
+        alt="reset"
+        onClick={onResetButtonClick}
+      />
+    ) : (
       <ControlButton
         src={pauseImgSrc}
         alt="pause"
