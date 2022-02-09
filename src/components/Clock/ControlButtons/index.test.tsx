@@ -4,15 +4,17 @@ import Component from ".";
 const onPauseButtonClick = jest.fn();
 const onResetButtonClick = jest.fn();
 const paused = false;
+const isNewGame = false;
 
 interface SetupProps {
   paused?: boolean;
+  isNewGame?: boolean;
 }
 
 const setup = (props?: SetupProps) =>
   render(
     <Component
-      {...{ onPauseButtonClick, onResetButtonClick, paused }}
+      {...{ onPauseButtonClick, onResetButtonClick, paused, isNewGame }}
       {...props}
     />
   );
@@ -37,6 +39,14 @@ it("doesnt' render reset button", () => {
   const element = queryByAltText("reset");
 
   expect(element).toBeNull();
+});
+
+describe("on a new game", () => {
+  it("doesn't render", () => {
+    const { container } = setup({ isNewGame: true });
+
+    expect(container.hasChildNodes()).toBeFalsy();
+  });
 });
 
 describe("on pause", () => {

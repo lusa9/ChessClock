@@ -13,6 +13,7 @@ interface Props {
 export default ({ timeMin, incrementSec }: Props) => {
   const [activeIndex, setActiveIndex] = useState<number>();
   const [expired, setExpired] = useState(false);
+  const [isNewGame, setIsNewGame] = useState(true);
 
   const clocks = useMemo(
     () => [...Array(2)].map((_) => new ClockObject(timeMin, incrementSec)),
@@ -38,6 +39,7 @@ export default ({ timeMin, incrementSec }: Props) => {
             otherClock.start();
 
             setActiveIndex(otherClockIndex);
+            setIsNewGame(false);
           },
           expired: expired ? index === activeIndex : false,
         };
@@ -59,6 +61,7 @@ export default ({ timeMin, incrementSec }: Props) => {
     });
 
     setActiveIndex(undefined);
+    setIsNewGame(true);
   }, [clocks]);
 
   useEffect(() => {
@@ -90,7 +93,7 @@ export default ({ timeMin, incrementSec }: Props) => {
       >
         <ControlButtons
           paused={activeIndex === undefined}
-          {...{ onPauseButtonClick, onResetButtonClick, expired }}
+          {...{ onPauseButtonClick, onResetButtonClick, expired, isNewGame }}
         />
       </div>
     </Flex>
