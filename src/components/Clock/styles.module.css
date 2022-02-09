@@ -16,6 +16,6 @@
   align-items: center;
 }
 
-.controlButtonsContainer > div {
+.controlButtonsContainer > button {
   pointer-events: auto;
 }

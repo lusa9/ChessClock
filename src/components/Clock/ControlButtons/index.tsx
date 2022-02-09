@@ -1,7 +1,7 @@
-import Flex from "components/Flex";
 import styles from "./styles.module.css";
 import resetImgSrc from "./reset.svg";
 import pauseImgSrc from "./pause.svg";
+import { useMemo } from "react";
 
 interface Props {
   onPauseButtonClick: () => void;
@@ -9,32 +9,17 @@ interface Props {
   paused: boolean;
 }
 
-export default ({ onPauseButtonClick, onResetButtonClick, paused }: Props) => (
-  <Flex gap={10}>
-    {paused ? (
-      <ControlButton
-        src={resetImgSrc}
-        alt="reset"
-        onClick={onResetButtonClick}
-      />
-    ) : (
-      <ControlButton
-        src={pauseImgSrc}
-        alt="pause"
-        onClick={onPauseButtonClick}
-      />
-    )}
-  </Flex>
-);
+export default ({ onPauseButtonClick, onResetButtonClick, paused }: Props) => {
+  const onClick = useMemo(
+    () => (paused ? onResetButtonClick : onPauseButtonClick),
+    [paused, onResetButtonClick, onPauseButtonClick]
+  );
+  const src = useMemo(() => (paused ? resetImgSrc : pauseImgSrc), [paused]);
+  const alt = useMemo(() => (paused ? "reset" : "pause"), [paused]);
 
-interface ControlButtonProps {
-  src: string;
-  alt: string;
-  onClick: () => void;
-}
-
-const ControlButton = ({ src, alt, onClick }: ControlButtonProps) => (
-  <button className={styles.button} {...{ onClick }}>
-    <img {...{ src, alt }} />
-  </button>
-);
+  return (
+    <button className={styles.button} {...{ onClick }}>
+      <img {...{ src, alt }} />
+    </button>
+  );
+};
