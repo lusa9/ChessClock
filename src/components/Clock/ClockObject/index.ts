@@ -14,9 +14,18 @@ export class ClockObject {
     this.label = format(this.timeSecLeft);
   }
 
-  secondPassed() {
-    this.timeSecLeft -= 1;
+  private setTimeSecLeft = (timeSecLeft: number) => {
+    this.timeSecLeft = timeSecLeft;
     this.updateLabel();
+  };
+
+  private updateLabel() {
+    this.label = format(this.timeSecLeft);
+    this.onLabelChange && this.onLabelChange(this.label);
+  }
+
+  secondPassed() {
+    this.setTimeSecLeft(this.timeSecLeft - 1);
 
     if (this.timeSecLeft === 0) {
       this.pause();
@@ -35,8 +44,7 @@ export class ClockObject {
     this.pause();
 
     if (this.incrementSec) {
-      this.timeSecLeft += this.incrementSec;
-      this.updateLabel();
+      this.setTimeSecLeft(this.timeSecLeft + this.incrementSec);
     }
   }
 
@@ -49,14 +57,8 @@ export class ClockObject {
 
   reset() {
     this.pause();
-    this.timeSecLeft = this.timeMin * 60;
-    this.updateLabel();
+    this.setTimeSecLeft(this.timeMin * 60);
     this.onExpiryChange && this.onExpiryChange(false);
-  }
-
-  private updateLabel() {
-    this.label = format(this.timeSecLeft);
-    this.onLabelChange && this.onLabelChange(this.label);
   }
 }
 
