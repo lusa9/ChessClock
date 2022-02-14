@@ -1,19 +1,19 @@
 import { render, fireEvent } from "@testing-library/react";
-import Component, { PickTimerButtonProps } from ".";
+import Component from ".";
 
 const label = "3 | 2";
 const onClick = jest.fn();
 
-const setup = (props: PickTimerButtonProps) => render(<Component {...props} />);
+const setup = () => render(<Component {...{ label, onClick }} />);
 
 test("renders successfully", () => {
-  const { baseElement: element } = setup({ label, onClick });
+  const { baseElement: element } = setup();
 
   expect(element).toBeInTheDocument();
 });
 
 test("renders label", () => {
-  const { getByText } = setup({ label, onClick });
+  const { getByText } = setup();
   const element = getByText(label);
 
   expect(element).toBeInTheDocument();
@@ -21,7 +21,7 @@ test("renders label", () => {
 
 describe("on click", () => {
   test("triggers callback call", () => {
-    const { container } = setup({ label, onClick });
+    const { container } = setup();
     fireEvent.click(container.getElementsByTagName("button")[0]);
 
     expect(onClick).toBeCalledTimes(1);
