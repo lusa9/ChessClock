@@ -14,22 +14,26 @@ export class ClockObject {
     this.label = format(this.timeSecLeft);
   }
 
-  private setTimeSecLeft = (timeSecLeft: number) => {
+  private setTimeSecLeft(timeSecLeft: number) {
     this.timeSecLeft = timeSecLeft;
     this.updateLabel();
-  };
+  }
 
   private updateLabel() {
     this.label = format(this.timeSecLeft);
     this.onLabelChange && this.onLabelChange(this.label);
   }
 
-  secondPassed() {
+  private setExpired() {
+    this.pause();
+    this.onExpiryChange && this.onExpiryChange(true);
+  }
+
+  private secondPassed() {
     this.setTimeSecLeft(this.timeSecLeft - 1);
 
     if (this.timeSecLeft === 0) {
-      this.pause();
-      this.onExpiryChange && this.onExpiryChange(true);
+      this.setExpired();
     }
   }
 
