@@ -48,20 +48,23 @@ export default ({ timeMin, incrementSec }: Props) => {
   );
 
   const onPauseButtonClick = useCallback(() => {
-    clocks.forEach((clock) => {
-      clock.pause();
-    });
+    if (!activeIndex) {
+      return;
+    }
+
+    const activeClock = clocks[activeIndex];
+    activeClock.pause();
 
     setActiveIndex(undefined);
-  }, [clocks]);
+  }, [clocks, activeIndex]);
 
   const onResetButtonClick = useCallback(() => {
     clocks.forEach((clock) => {
       clock.reset();
     });
 
-    setActiveIndex(undefined);
     setIsNewGame(true);
+    setActiveIndex(undefined);
   }, [clocks]);
 
   useEffect(() => {
