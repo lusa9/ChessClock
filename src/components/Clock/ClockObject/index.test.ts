@@ -1,6 +1,7 @@
 import { ClockObject } from ".";
 
 const timeMin = 10;
+const incrementSec = 0;
 
 interface SetupProps {
   timeMin?: number;
@@ -8,7 +9,10 @@ interface SetupProps {
 }
 
 const setup = (props?: SetupProps) =>
-  new ClockObject(props?.timeMin || timeMin, props?.incrementSec);
+  new ClockObject(
+    props?.timeMin || timeMin,
+    props?.incrementSec || incrementSec
+  );
 
 it("creates successfully", () => {
   setup();

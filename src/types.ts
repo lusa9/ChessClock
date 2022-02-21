@@ -1,4 +1,4 @@
 export interface TimerProps {
   timeMin: number;
-  incrementSec?: number;
+  incrementSec: number;
 }

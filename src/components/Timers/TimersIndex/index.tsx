@@ -26,7 +26,7 @@ export default () => {
                   navigate(
                     `/clock/${new URLSearchParams({
                       time: String(timeMin),
-                      ...(incrementSec && { increment: String(incrementSec) }),
+                      increment: String(incrementSec),
                     })}`
                   ),
               };

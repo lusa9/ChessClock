@@ -3,7 +3,8 @@ import Component from ".";
 import { ClockObject } from "../ClockObject";
 
 const timeMin = 10;
-const clock = new ClockObject(timeMin);
+const incrementSec = 0;
+const clock = new ClockObject(timeMin, incrementSec);
 const onClick = jest.fn();
 const isActive = false;
 const expired = false;

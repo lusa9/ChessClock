@@ -15,9 +15,12 @@ export default () => {
   }
 
   const incrementString = searchParams.get("increment");
-  const incrementSec = incrementString ? parseInt(incrementString) : undefined;
+  if (!incrementString) {
+    return <Navigate replace to="/timers" />;
+  }
+  const incrementSec = parseInt(incrementString);
 
-  if (incrementString && isNaN(parseInt(incrementString))) {
+  if (isNaN(incrementSec)) {
     return <Navigate replace to="/timers" />;
   }
 

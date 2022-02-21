@@ -1,13 +1,13 @@
 export class ClockObject {
   private timeMin: number;
-  private incrementSec?: number;
+  private incrementSec: number;
   private timeSecLeft: number;
   label: string;
   onLabelChange?: (label: string) => void;
   onExpiryChange?: (expired: boolean) => void;
   private timer?: NodeJS.Timer;
 
-  constructor(timeMin: number, incrementSec?: number) {
+  constructor(timeMin: number, incrementSec: number) {
     this.timeMin = timeMin;
     this.incrementSec = incrementSec;
     this.timeSecLeft = timeMin * 60;

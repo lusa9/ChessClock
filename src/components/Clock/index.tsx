@@ -7,7 +7,7 @@ import styles from "./styles.module.css";
 
 interface Props {
   timeMin: number;
-  incrementSec?: number;
+  incrementSec: number;
 }
 
 export default ({ timeMin, incrementSec }: Props) => {

@@ -8,9 +8,11 @@ const initialTimers: TimerProps[] = [
   },
   {
     timeMin: 5,
+    incrementSec: 0,
   },
   {
     timeMin: 10,
+    incrementSec: 0,
   },
   {
     timeMin: 15,
@@ -53,13 +55,24 @@ export const TimerProvider = ({ children }: TimerProviderProps) => {
   }, [timers]);
 
   const addTimer = useCallback(
-    (timer: TimerProps) =>
+    (newTimer: TimerProps) => {
+      const exists = timers.some(
+        (timer) =>
+          timer.timeMin === newTimer.timeMin &&
+          timer.incrementSec === newTimer.incrementSec
+      );
+
+      if (exists) {
+        return;
+      }
+
       setTimers((timers) =>
-        [...timers, timer].sort((a, b) => {
+        [...timers, newTimer].sort((a, b) => {
           return a.timeMin - b.timeMin;
         })
-      ),
-    []
+      );
+    },
+    [timers]
   );
 
   return (

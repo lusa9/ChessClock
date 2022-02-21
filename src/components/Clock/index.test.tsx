@@ -1,7 +1,7 @@
 import { render, fireEvent } from "@testing-library/react";
 import Component from ".";
 
-const setup = () => render(<Component timeMin={10} />);
+const setup = () => render(<Component timeMin={10} incrementSec={0} />);
 
 const clickClockButton = () => {
   const { getAllByText } = setup();
