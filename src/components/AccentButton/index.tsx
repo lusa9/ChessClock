@@ -2,7 +2,7 @@ import styles from "./styles.module.css";
 
 export interface Props {
   label: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export default ({ label, onClick }: Props) => (

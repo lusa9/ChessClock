@@ -31,11 +31,14 @@ export default () => {
   ];
 
   return (
-    <Flex
-      column
-      justifyContentSpaceBetween
+    <form
       className={styles.component}
       style={{ height: window.innerHeight }}
+      onSubmit={(evt) => {
+        evt.preventDefault();
+        addTimer({ timeMin: minutes, incrementSec: incrementSeconds });
+        navigate("/timers");
+      }}
     >
       <Flex column gap={50}>
         {entries.map((entry) => (
@@ -44,14 +47,8 @@ export default () => {
           </React.Fragment>
         ))}
       </Flex>
-      <AccentButton
-        label="SAVE"
-        onClick={() => {
-          addTimer({ timeMin: minutes, incrementSec: incrementSeconds });
-          navigate("/timers");
-        }}
-      />
-    </Flex>
+      <AccentButton label="SAVE" />
+    </form>
   );
 };
 
@@ -88,7 +85,6 @@ const Input = ({ value, onChange, min, max, autoFocus }: InputProps) => (
       }
 
       onChange(number);
-      console.log(number);
     }}
     value={String(value)}
     {...{ min, autoFocus }}
