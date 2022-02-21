@@ -48,7 +48,7 @@ export default ({ timeMin, incrementSec }: Props) => {
   );
 
   const onPauseButtonClick = useCallback(() => {
-    if (!activeIndex) {
+    if (activeIndex === undefined) {
       return;
     }
 
