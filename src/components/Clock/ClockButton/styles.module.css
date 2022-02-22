@@ -1,7 +1,7 @@
 .active {
-  background-color: #e38f34;
+  background-color: var(--accent);
 }
 
 .expired {
-  background-color: red;
+  background-color: var(--red);
 }

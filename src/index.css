@@ -37,11 +37,13 @@ button {
   --aluminum-silver: #8e8e93;
   --sparkling-metal: #c3c3c6;
   --accent: #e38f34;
+  --red: red;
+  --black: black;
 }
 
 :root {
   all: unset;
-  background-color: black;
+  background-color: var(--black);
   color: white;
   font-family: "Roboto", sans-serif;
   user-select: none;
